@@ -1,0 +1,24 @@
+<UserControl x:Class="StudyPlanner.App.Controls.PersianCalendarControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             FlowDirection="RightToLeft"
+             x:Name="Root">
+    <StackPanel Margin="8">
+        <Grid Margin="0,0,0,8">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Column="0" Content="ماه قبل" Padding="14,8" FontSize="14" Click="PreviousMonth_Click"/>
+            <TextBlock Grid.Column="1" x:Name="HeaderText" HorizontalAlignment="Center"
+                       VerticalAlignment="Center" FontWeight="Bold" FontSize="22"/>
+            <Button Grid.Column="2" Content="ماه بعد" Padding="14,8" FontSize="14" Click="NextMonth_Click"/>
+        </Grid>
+
+        <UniformGrid Columns="7" x:Name="WeekDaysHeader" Margin="0,0,0,4"/>
+
+        <UniformGrid Columns="7" x:Name="DaysGrid"/>
+    </StackPanel>
+</UserControl>
