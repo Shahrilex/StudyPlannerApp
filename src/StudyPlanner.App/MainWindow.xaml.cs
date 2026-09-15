@@ -59,6 +59,14 @@ public partial class MainWindow : Window
         await vm.SaveTopicAsync(topic);
     }
 
+    private async void CivilTopicPicker_SelectionSaved(object? sender, EventArgs e)
+    {
+        if (DataContext is not MainViewModel vm) return;
+        if (sender is not CivilTopicPicker { DataContext: StudyTopic topic }) return;
+
+        await vm.SaveTopicAsync(topic);
+    }
+
     private async void SessionTimePicker_ValueChanged(object? sender, EventArgs e)
     {
         if (DataContext is not MainViewModel vm) return;

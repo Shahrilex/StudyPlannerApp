@@ -85,7 +85,31 @@
                                                      ItemsSource="{Binding Source={StaticResource ViewModelProxy}, Path=Data.SubjectOptions}"
                                                      Width="140"/>
 
-                            <DataGridTextColumn Header="مبحث مطالعه" Binding="{Binding Topic}" Width="*"/>
+                            <DataGridTemplateColumn Header="مبحث مطالعه" Width="*">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Grid>
+                                            <TextBox x:Name="FreeTopicText" Text="{Binding Topic, UpdateSourceTrigger=PropertyChanged}"
+                                                     VerticalContentAlignment="Center" BorderThickness="0" Padding="4,2"/>
+                                            <controls:CivilTopicPicker x:Name="CivilTopicPicker"
+                                                                       Topic="{Binding Topic, Mode=TwoWay}"
+                                                                       ArticleNumbers="{Binding ArticleNumbers, Mode=TwoWay}"
+                                                                       SelectedKeys="{Binding SelectedTopicKeys, Mode=TwoWay}"
+                                                                       SelectedSubject="{Binding Subject}"
+                                                                       SelectionSaved="CivilTopicPicker_SelectionSaved"
+                                                                       Visibility="Collapsed"/>
+                                        </Grid>
+                                        <DataTemplate.Triggers>
+                                            <DataTrigger Binding="{Binding HasTopicCatalog}" Value="True">
+                                                <Setter TargetName="FreeTopicText" Property="Visibility" Value="Collapsed"/>
+                                                <Setter TargetName="CivilTopicPicker" Property="Visibility" Value="Visible"/>
+                                            </DataTrigger>
+                                        </DataTemplate.Triggers>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+
+                            <DataGridTextColumn Header="شماره مواد" Binding="{Binding ArticleNumbers}" IsReadOnly="True" Width="150"/>
 
                             <DataGridTemplateColumn Header="ساعت شروع" Width="90">
                                 <DataGridTemplateColumn.CellTemplate>

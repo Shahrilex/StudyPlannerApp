@@ -259,6 +259,13 @@ public partial class MainViewModel : ObservableObject
 
     public async Task SaveTopicAsync(StudyTopic topic)
     {
+        // اگر برای درس منتخب فهرست مرجع نداریم، داده‌ی انتخاب‌گر قبلی نباید باقی بماند.
+        if (!topic.HasTopicCatalog)
+        {
+            topic.ArticleNumbers = string.Empty;
+            topic.SelectedTopicKeys = string.Empty;
+        }
+
         if (topic.EndTime <= topic.StartTime)
             ShowToast("⚠ ساعت پایان باید بعد از ساعت شروع باشد - زمان مطالعه صفر ثبت شد.");
 

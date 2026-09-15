@@ -75,6 +75,10 @@ namespace StudyPlanner.Data.Migrations
                     b.Property<int>("AllocatedMinutes")
                         .HasColumnType("INTEGER");
 
+                    b.Property<string>("ArticleNumbers")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<TimeSpan>("EndTime")
                         .HasColumnType("TEXT");
 
@@ -90,6 +94,10 @@ namespace StudyPlanner.Data.Migrations
 
                     b.Property<int>("RowNumber")
                         .HasColumnType("INTEGER");
+
+                    b.Property<string>("SelectedTopicKeys")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.Property<TimeSpan>("StartTime")
                         .HasColumnType("TEXT");

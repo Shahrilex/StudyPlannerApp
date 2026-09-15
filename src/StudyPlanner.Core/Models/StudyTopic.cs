@@ -16,10 +16,64 @@ public class StudyTopic : INotifyPropertyChanged
     public int RowNumber { get; set; }
 
     /// <summary>عنوان درس - لیست بسته‌ی ۹ گزینه‌ای.</summary>
-    public SubjectType Subject { get; set; }
+    private SubjectType _subject;
+    public SubjectType Subject
+    {
+        get => _subject;
+        set
+        {
+            if (_subject == value) return;
+            _subject = value;
+            // انتخاب‌ها فقط در چارچوب همان درس معنا دارند.
+            Topic = string.Empty;
+            ArticleNumbers = string.Empty;
+            SelectedTopicKeys = string.Empty;
+            OnPropertyChanged();
+            OnPropertyChanged(nameof(HasTopicCatalog));
+        }
+    }
 
-    /// <summary>مبحث مطالعه - متن آزاد، دستی.</summary>
-    public string Topic { get; set; } = string.Empty;
+    /// <summary>برای این درس، فهرست مبحث در داده‌های مرجع موجود است.</summary>
+    public bool HasTopicCatalog => CivilTopicCatalog.GetOptions(Subject).Count > 0;
+
+    /// <summary>مبحث مطالعه. برای درس مدنی از فهرست چندانتخابی پر می‌شود.</summary>
+    private string _topic = string.Empty;
+    public string Topic
+    {
+        get => _topic;
+        set
+        {
+            if (_topic == value) return;
+            _topic = value;
+            OnPropertyChanged();
+        }
+    }
+
+    /// <summary>شماره مواد متناظر با مباحث انتخاب‌شده.</summary>
+    private string _articleNumbers = string.Empty;
+    public string ArticleNumbers
+    {
+        get => _articleNumbers;
+        set
+        {
+            if (_articleNumbers == value) return;
+            _articleNumbers = value;
+            OnPropertyChanged();
+        }
+    }
+
+    /// <summary>کلیدهای داخلی انتخاب‌ها؛ برای بازیابی انتخاب‌های تکراریِ هم‌نام استفاده می‌شود.</summary>
+    private string _selectedTopicKeys = string.Empty;
+    public string SelectedTopicKeys
+    {
+        get => _selectedTopicKeys;
+        set
+        {
+            if (_selectedTopicKeys == value) return;
+            _selectedTopicKeys = value;
+            OnPropertyChanged();
+        }
+    }
 
     private TimeSpan _startTime = new(9, 0, 0);
 

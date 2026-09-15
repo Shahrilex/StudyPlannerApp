@@ -11,7 +11,7 @@ namespace StudyPlanner.Services;
 public class ExcelExportService : IExcelExportService
 {
     private const int TopicsStartColumn = 1;  // A
-    private const int SessionsStartColumn = 12; // L - فاصله از جدول مباحث (که حالا ۹ ستون شده)
+    private const int SessionsStartColumn = 13; // M - فاصله از جدول مباحث (که حالا ۱۰ ستون شده)
 
     private readonly IPersianDateService _persianDateService;
 
@@ -67,7 +67,7 @@ public class ExcelExportService : IExcelExportService
 
     private static void WriteTopicsTable(IXLWorksheet sheet, List<StudyTopic> topics, int startRow, int startColumn)
     {
-        string[] headers = { "ردیف", "عنوان درس", "مبحث مطالعه", "ساعت شروع", "ساعت پایان", "زمان مطالعه (دقیقه)", "اولویت", "سطح تسلط", "توضیحات" };
+        string[] headers = { "ردیف", "عنوان درس", "مبحث مطالعه", "شماره مواد", "ساعت شروع", "ساعت پایان", "زمان مطالعه (دقیقه)", "اولویت", "سطح تسلط", "توضیحات" };
 
         for (var i = 0; i < headers.Length; i++)
         {
@@ -84,12 +84,13 @@ public class ExcelExportService : IExcelExportService
             sheet.Cell(row, startColumn).Value = topic.RowNumber;
             sheet.Cell(row, startColumn + 1).Value = topic.Subject.ToPersianDisplayName();
             sheet.Cell(row, startColumn + 2).Value = topic.Topic;
-            sheet.Cell(row, startColumn + 3).Value = topic.StartTime.ToString(@"hh\:mm");
-            sheet.Cell(row, startColumn + 4).Value = topic.EndTime.ToString(@"hh\:mm");
-            sheet.Cell(row, startColumn + 5).Value = topic.AllocatedMinutes;
-            sheet.Cell(row, startColumn + 6).Value = topic.Priority.ToPersianDisplayName();
-            sheet.Cell(row, startColumn + 7).Value = topic.Mastery.ToPersianDisplayName();
-            sheet.Cell(row, startColumn + 8).Value = topic.Notes;
+            sheet.Cell(row, startColumn + 3).Value = topic.ArticleNumbers;
+            sheet.Cell(row, startColumn + 4).Value = topic.StartTime.ToString(@"hh\:mm");
+            sheet.Cell(row, startColumn + 5).Value = topic.EndTime.ToString(@"hh\:mm");
+            sheet.Cell(row, startColumn + 6).Value = topic.AllocatedMinutes;
+            sheet.Cell(row, startColumn + 7).Value = topic.Priority.ToPersianDisplayName();
+            sheet.Cell(row, startColumn + 8).Value = topic.Mastery.ToPersianDisplayName();
+            sheet.Cell(row, startColumn + 9).Value = topic.Notes;
             row++;
         }
     }
